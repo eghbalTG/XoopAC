@@ -15,6 +15,7 @@ setTimer(function()
   tCount = 0
 end, 3000, 0)
 --
+checkFunctions = {"addDebugHook","loadstring","load","pcall","setPedOnFire","createProjectile","createExplosion","blowVehicle","triggerServerEvent","triggerEvent"}
 function onPreFunction( sourceResource, functionName, isAllowedByACL, luaFilename, luaLineNumber, ... )
   if functionName == "addDebugHook" and sourceResource ~= getThisResource()  then return "skip" end
   if functionName == "loadstring" or functionName == "load" or functionName == "pcall" then 
@@ -34,7 +35,7 @@ function onPreFunction( sourceResource, functionName, isAllowedByACL, luaFilenam
     end 
   end
 end
-Debug = addDebugHook("preFunction", onPreFunction)
+Debug = addDebugHook("preFunction", onPreFunction,checkFunctions)
 
 -- Saving Injected Code
 function saveCode(code)
